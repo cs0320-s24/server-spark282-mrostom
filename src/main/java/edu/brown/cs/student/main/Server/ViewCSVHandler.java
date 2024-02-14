@@ -6,22 +6,17 @@ import com.squareup.moshi.Types;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
 
-import javax.xml.crypto.Data;
-
 public class ViewCSVHandler implements Route {
-  List<List<String>> data;
   DataSource dataSource;
 
   public ViewCSVHandler(DataSource dataSource) throws IOException, FactoryFailureException {
-      this.dataSource = dataSource;
-      this.data = this.dataSource.getData();
+    this.dataSource = dataSource;
   }
 
   private final Moshi moshi = new Moshi.Builder().build();
@@ -35,8 +30,8 @@ public class ViewCSVHandler implements Route {
     // response returns okay for loading properly
     responseMap.put("type", "success");
     responseMap.put("view", "successful");
-    System.out.println(this.data);
-    responseMap.put("data", this.data);
+    System.out.println(this.dataSource.getData2());
+    responseMap.put("data", this.dataSource.getData2());
     // call parser
     return adapter.toJson(responseMap);
   }
