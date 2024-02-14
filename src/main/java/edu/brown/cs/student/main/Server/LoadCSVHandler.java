@@ -23,7 +23,7 @@ public class LoadCSVHandler implements Route {
   public List<List<String>> data;
   public DataSource dataSource;
 
-  public LoadCSVHandler(DataSource dataSource){
+  public LoadCSVHandler(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 
@@ -38,12 +38,11 @@ public class LoadCSVHandler implements Route {
     }
     System.out.println(this.fileName); // TODO: remove this
 
-    List<List<String>> data = this.dataSource.getData();
-
+    List<List<String>> data = this.dataSource.getData(fileName);
+    System.out.println(data);
     // Response returns okay for loading properly
     responseMap.put("type", "success");
     responseMap.put("view", "successful");
     return adapter.toJson(responseMap);
   }
-
 }
