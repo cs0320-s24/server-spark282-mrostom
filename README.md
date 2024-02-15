@@ -5,7 +5,7 @@
 # Project Details
 
 # Design Choices
-
+two space words are underscore
 # Errors/Bugs
 
 # Tests

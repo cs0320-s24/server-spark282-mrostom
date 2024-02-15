@@ -3,7 +3,7 @@ package edu.brown.cs.student.main.Server.Handlers;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.Server.DataSource;
+import edu.brown.cs.student.main.Server.CSVDataSourceInterface;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -14,10 +14,11 @@ import spark.Route;
 import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
 
 public class ViewCSVHandler implements Route {
-  DataSource dataSource;
+  CSVDataSourceInterface CSVDataSourceInterface;
 
-  public ViewCSVHandler(DataSource dataSource) throws IOException, FactoryFailureException {
-    this.dataSource = dataSource;
+  public ViewCSVHandler(CSVDataSourceInterface CSVDataSourceInterface)
+      throws IOException, FactoryFailureException {
+    this.CSVDataSourceInterface = CSVDataSourceInterface;
   }
 
   private final Moshi moshi = new Moshi.Builder().build();
@@ -31,8 +32,8 @@ public class ViewCSVHandler implements Route {
     // response returns okay for loading properly
     responseMap.put("type", "success");
     responseMap.put("view", "successful");
-    System.out.println(this.dataSource.getData2());
-    responseMap.put("data", this.dataSource.getData2());
+    System.out.println(this.CSVDataSourceInterface.getData2());
+    responseMap.put("data", this.CSVDataSourceInterface.getData2());
     // call parser
     return adapter.toJson(responseMap);
   }

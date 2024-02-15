@@ -2,17 +2,15 @@ package edu.brown.cs.student.main.Server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.Server.Handlers.BroadbandHandler;
-import edu.brown.cs.student.main.Server.Handlers.LoadCSVHandler;
-import edu.brown.cs.student.main.Server.Handlers.SearchCSVHandler;
-import edu.brown.cs.student.main.Server.Handlers.ViewCSVHandler;
+import edu.brown.cs.student.main.Server.Handlers.*;
 import java.io.IOException;
 import spark.Spark;
 
 public class Server {
 
   public int port = 3232;
-  private static final DataSource state = new CSVDataSource();
+  private static final CSVDataSourceInterface state = new CSVDataSource();
+  private static final APIDataSourceInterface api = new BroadbandDataSource();
 
   public Server()
       throws IOException,
@@ -31,7 +29,7 @@ public class Server {
     Spark.get("loadcsv", new LoadCSVHandler(state));
     Spark.get("viewcsv", new ViewCSVHandler(state));
     Spark.get("searchcsv", new SearchCSVHandler(state));
-    Spark.get("broadband", new BroadbandHandler());
+    Spark.get("broadband", new BroadbandHandler(api));
 
     // Wait until server starts
     Spark.awaitInitialization();

@@ -4,7 +4,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.CSVUtilities.Search;
-import edu.brown.cs.student.main.Server.DataSource;
+import edu.brown.cs.student.main.Server.CSVDataSourceInterface;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class SearchCSVHandler implements Route {
   JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
   Map<String, Object> responseMap = new HashMap<>();
   private String searchType;
-  public DataSource dataSource;
+  public CSVDataSourceInterface CSVDataSourceInterface;
   public String value;
   public String header;
   public String indexString;
@@ -30,18 +30,18 @@ public class SearchCSVHandler implements Route {
   public List<String> headerRow;
   public List<List<String>> result;
 
-  public SearchCSVHandler(DataSource dataSource) {
-    this.dataSource = dataSource;
+  public SearchCSVHandler(CSVDataSourceInterface CSVDataSourceInterface) {
+    this.CSVDataSourceInterface = CSVDataSourceInterface;
   }
 
   @Override
   public Object handle(Request request, Response response)
       throws IOException, FactoryFailureException {
-    this.headerRow = this.dataSource.getHeaderRow();
+    this.headerRow = this.CSVDataSourceInterface.getHeaderRow();
     this.indexString = request.queryParams("index"); // tODO: handle non integer
     this.header = request.queryParams("header");
     this.value = request.queryParams("value");
-    List<List<String>> data = this.dataSource.getData2();
+    List<List<String>> data = this.CSVDataSourceInterface.getData2();
     Search searcher = new Search(this.value, data, this.headerRow);
     if (this.value == null) {
       responseMap.put("error_type", "missing_parameter");

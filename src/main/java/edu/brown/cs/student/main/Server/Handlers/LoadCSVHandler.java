@@ -3,7 +3,7 @@ package edu.brown.cs.student.main.Server.Handlers;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.Server.DataSource;
+import edu.brown.cs.student.main.Server.CSVDataSourceInterface;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -22,15 +22,15 @@ public class LoadCSVHandler implements Route {
   Map<String, Object> responseMap = new HashMap<>();
   private String fileName;
   public List<List<String>> data;
-  public DataSource dataSource;
+  public CSVDataSourceInterface CSVDataSourceInterface;
 
-  public LoadCSVHandler(DataSource dataSource) {
-    this.dataSource = dataSource;
+  public LoadCSVHandler(CSVDataSourceInterface CSVDataSourceInterface) {
+    this.CSVDataSourceInterface = CSVDataSourceInterface;
   }
 
   @Override
   public Object handle(Request request, Response response)
-      throws IOException, FactoryFailureException {
+      throws IOException, FactoryFailureException, DatasourceException {
     this.fileName = request.queryParams("filepath");
     if (this.fileName == null) {
       responseMap.put("error_type", "missing_parameter");
@@ -40,7 +40,7 @@ public class LoadCSVHandler implements Route {
     // TODO: query whether there is a handler to the file entered
     //   System.out.println(this.fileName); // TODO: remove this
 
-    List<List<String>> data = this.dataSource.getData(fileName);
+    List<List<String>> data = this.CSVDataSourceInterface.getData(fileName);
     //  System.out.println(data);
     // Response returns okay for loading properly
     responseMap.put("type", "success");

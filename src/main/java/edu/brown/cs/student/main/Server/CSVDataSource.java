@@ -10,7 +10,7 @@ import java.io.Reader;
 import java.util.List;
 import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
 
-public class CSVDataSource implements DataSource {
+public class CSVDataSource implements CSVDataSourceInterface {
 
   public List<List<String>> data;
   public List<String> headerRow;
