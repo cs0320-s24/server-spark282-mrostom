@@ -2,6 +2,9 @@ package edu.brown.cs.student.main.Server;
 
 import static spark.Spark.after;
 
+import edu.brown.cs.student.main.Server.Handlers.LoadCSVHandler;
+import edu.brown.cs.student.main.Server.Handlers.SearchCSVHandler;
+import edu.brown.cs.student.main.Server.Handlers.ViewCSVHandler;
 import java.io.IOException;
 import spark.Spark;
 
@@ -26,7 +29,7 @@ public class Server {
     // Listen on load, view, and search endpoints
     Spark.get("loadcsv", new LoadCSVHandler(state));
     Spark.get("viewcsv", new ViewCSVHandler(state));
-    Spark.get("searchcsv", new SearchCSVHandler());
+    Spark.get("searchcsv", new SearchCSVHandler(state));
 
     // Wait until server starts
     Spark.awaitInitialization();

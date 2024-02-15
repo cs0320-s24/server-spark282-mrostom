@@ -8,4 +8,6 @@ public interface DataSource {
   List<List<String>> getData(String fileName) throws IOException, FactoryFailureException;
 
   public List<List<String>> getData2();
+
+  public List<String> getHeaderRow();
 }

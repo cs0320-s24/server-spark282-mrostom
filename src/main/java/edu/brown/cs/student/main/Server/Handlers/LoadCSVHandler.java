@@ -1,8 +1,9 @@
-package edu.brown.cs.student.main.Server;
+package edu.brown.cs.student.main.Server.Handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.Server.DataSource;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -36,10 +37,11 @@ public class LoadCSVHandler implements Route {
       responseMap.put("error_arg", "empty path name");
       return adapter.toJson(responseMap);
     }
-    System.out.println(this.fileName); // TODO: remove this
+    // TODO: query whether there is a handler to the file entered
+    //   System.out.println(this.fileName); // TODO: remove this
 
     List<List<String>> data = this.dataSource.getData(fileName);
-    System.out.println(data);
+    //  System.out.println(data);
     // Response returns okay for loading properly
     responseMap.put("type", "success");
     responseMap.put("view", "successful");
