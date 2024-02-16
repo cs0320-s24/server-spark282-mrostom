@@ -13,7 +13,6 @@ public class Search {
   private final List<String> headerRow;
   private final List<List<String>> result;
   private final String value;
-  private int searchIndex;
 
   public Search(String value, List<List<String>> data, List<String> headerRow) {
     this.data = data;

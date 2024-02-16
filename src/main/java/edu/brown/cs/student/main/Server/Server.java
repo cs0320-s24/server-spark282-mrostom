@@ -27,13 +27,15 @@ public class Server {
   // This is the main port for the server
   public int port = 3232;
 
+  // How long to keep the cache for
+  static int cacheExpireMin = 5;
+
   // Instantiate data sources
   private static final CSVDataSourceInterface CSVSource = new CSVDataSource();
-  private static final APIDataSourceInterface APISource = new BroadbandDataSource();
-  private static final APIDataSourceInterface CachingProxy = new CachingProxy(APISource);
 
   /** Constructor for Server. */
-  public Server() {
+  public Server(APIDataSourceInterface dataSource) {
+    APIDataSourceInterface cachingProxy = new CachingProxy(dataSource, cacheExpireMin);
     // Set up SparkJava Server
     Spark.port(this.port);
 
@@ -48,7 +50,7 @@ public class Server {
     Spark.get("loadcsv", new LoadCSVHandler(CSVSource));
     Spark.get("viewcsv", new ViewCSVHandler(CSVSource));
     Spark.get("searchcsv", new SearchCSVHandler(CSVSource));
-    Spark.get("broadband", new BroadbandHandler(CachingProxy));
+    Spark.get("broadband", new BroadbandHandler(cachingProxy));
 
     // Wait until server starts
     Spark.awaitInitialization();
@@ -61,7 +63,7 @@ public class Server {
    */
   public static void main(String[] args)
       throws IOException, FactoryFailureException, ExecutionException {
-    Server server = new Server();
+    Server server = new Server(new BroadbandDataSource());
     System.out.println("Server started; exiting main...");
   }
 }

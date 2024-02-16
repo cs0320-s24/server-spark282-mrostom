@@ -8,15 +8,20 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.NotNull;
 
+/** A class for implementing a caching proxy to reduce load on server */
 public class CachingProxy implements APIDataSourceInterface {
-
   private final LoadingCache<String, List<List<String>>> cache;
 
-  public CachingProxy(APIDataSourceInterface broadband) {
+  /**
+   * constructor for the CachingProxy
+   *
+   * @param broadband A datasource that the cache will call when it has a cache miss
+   */
+  public CachingProxy(APIDataSourceInterface broadband, Integer expireMinutes) {
     this.cache =
         CacheBuilder.newBuilder()
-            .maximumSize(100)
-            .expireAfterWrite(100, TimeUnit.MINUTES)
+            .maximumSize(20)
+            .expireAfterWrite(expireMinutes, TimeUnit.MINUTES)
             .recordStats()
             .build(
                 new CacheLoader<>() {
