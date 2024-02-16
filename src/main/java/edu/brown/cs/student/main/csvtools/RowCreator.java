@@ -1,8 +1,7 @@
-package edu.brown.cs.student.main.CSVUtilities;
+package edu.brown.cs.student.main.csvtools;
 
 import java.util.ArrayList;
 import java.util.List;
-import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
 
 /**
  * A class that creates Lists of strings, implements CreatorFromRow interface.

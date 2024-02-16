@@ -1,10 +1,10 @@
-package edu.brown.cs.student.main.Server.Handlers;
+package edu.brown.cs.student.main.server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.CSVUtilities.Search;
-import edu.brown.cs.student.main.Server.DataSources.CSVDataSourceInterface;
+import edu.brown.cs.student.main.csvtools.Search;
+import edu.brown.cs.student.main.server.datasources.CSVDataSourceInterface;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
+import edu.brown.cs.student.main.csvtools.FactoryFailureException;
 
 public class SearchCSVHandler implements Route {
 
@@ -41,7 +41,7 @@ public class SearchCSVHandler implements Route {
     this.indexString = request.queryParams("index"); // tODO: handle non integer
     this.header = request.queryParams("header");
     this.value = request.queryParams("value");
-    List<List<String>> data = this.CSVDataSourceInterface.getData2();
+    List<List<String>> data = this.CSVDataSourceInterface.getData();
     Search searcher = new Search(this.value, data, this.headerRow);
     if (this.value == null) {
       responseMap.put("error_type", "missing_parameter");

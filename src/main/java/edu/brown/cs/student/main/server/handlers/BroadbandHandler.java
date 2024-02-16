@@ -1,9 +1,9 @@
-package edu.brown.cs.student.main.Server.Handlers;
+package edu.brown.cs.student.main.server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.Server.DataSources.APIDataSourceInterface;
+import edu.brown.cs.student.main.server.datasources.APIDataSourceInterface;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
+import edu.brown.cs.student.main.csvtools.FactoryFailureException;
 
 public class BroadbandHandler implements Route {
 

@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.Server.Handlers;
+package edu.brown.cs.student.main.server.handlers;
 
 /**
  * This exception communicates that something went wrong with a requested datasource. It _wraps_ the

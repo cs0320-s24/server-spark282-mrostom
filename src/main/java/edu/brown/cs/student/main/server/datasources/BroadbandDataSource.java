@@ -1,9 +1,9 @@
-package edu.brown.cs.student.main.Server.DataSources;
+package edu.brown.cs.student.main.server.datasources;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.Server.Handlers.DatasourceException;
+import edu.brown.cs.student.main.server.handlers.DatasourceException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import okio.Buffer;
-import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
+import edu.brown.cs.student.main.csvtools.FactoryFailureException;
 
 public class BroadbandDataSource implements APIDataSourceInterface {
 

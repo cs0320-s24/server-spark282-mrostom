@@ -1,9 +1,9 @@
-package edu.brown.cs.student.main.Server.DataSources;
+package edu.brown.cs.student.main.server.datasources;
 
-import edu.brown.cs.student.main.Server.Handlers.DatasourceException;
+import edu.brown.cs.student.main.server.handlers.DatasourceException;
 import java.io.IOException;
 import java.util.List;
-import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
+import edu.brown.cs.student.main.csvtools.FactoryFailureException;
 
 public interface APIDataSourceInterface {
   List<List<String>> getData(String State, String County)

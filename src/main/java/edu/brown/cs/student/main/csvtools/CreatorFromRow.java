@@ -1,7 +1,6 @@
-package edu.brown.cs.student.main.CSVUtilities;
+package edu.brown.cs.student.main.csvtools;
 
 import java.util.List;
-import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
 
 /**
  * This interface defines a method that allows your CSV parser to convert each row into an object of
