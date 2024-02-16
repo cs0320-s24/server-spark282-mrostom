@@ -31,13 +31,8 @@ public class Server {
   private static final CSVDataSourceInterface CSVSource = new CSVDataSource();
   private static final APIDataSourceInterface APISource = new BroadbandDataSource();
 
-  /**
-   * Constructor for Server. TODO: fix the throws
-   *
-   * @throws IOException
-   * @throws FactoryFailureException
-   */
-  public Server() throws IOException, FactoryFailureException {
+  /** Constructor for Server. */
+  public Server() {
     // Set up SparkJava Server.
     Spark.port(this.port);
 

@@ -27,11 +27,10 @@ public class Search {
     return !this.data.isEmpty() && index >= 0 && this.data.get(0).size() > index;
   }
 
-  public List<List<String>> searchIndex(int index) {
+  public List<List<String>> searchIndex(int index) throws IllegalArgumentException {
 
     if (!checkIndexBounds(index)) {
       System.out.println("out of bounds");
-      // TODO: handle errors if user enters words instead of nums
       throw new IllegalArgumentException();
     }
 
@@ -44,9 +43,12 @@ public class Search {
     return this.result;
   }
 
-  public List<List<String>> searchColumn(String header) {
+  public List<List<String>> searchColumn(String header) throws IllegalArgumentException {
     // find index associated with header
-    int index = this.headerRow.indexOf(header); // TODO: if we don't find it, error!
+    int index = this.headerRow.indexOf(header);
+    if (index < 0) {
+      throw new IllegalArgumentException();
+    }
     return searchIndex(index);
   }
 

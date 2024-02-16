@@ -17,11 +17,6 @@ import spark.Route;
 public class LoadCSVHandler implements Route {
 
   private final CSVDataSourceInterface CSVDataSource;
-  // configure moshi to read JSON response
-  Moshi moshi = new Moshi.Builder().build();
-  Map<String, Object> responseMap = new HashMap<>();
-  Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
-  JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
 
   /**
    * Constructor for the loadcsvHandler.
@@ -42,10 +37,26 @@ public class LoadCSVHandler implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
+    // configure moshi to read JSON response
+    Moshi moshi = new Moshi.Builder().build();
+    Map<String, Object> responseMap = new HashMap<>();
+    Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
+    JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
+
     String fileName;
+    String hasHeaderString;
     boolean hasHeader;
     fileName = request.queryParams("filepath");
-    hasHeader = Boolean.parseBoolean(request.queryParams("header"));
+    hasHeaderString = request.queryParams("header");
+    if (hasHeaderString == null || hasHeaderString.equals("true")) {
+      hasHeader = true;
+    } else if (hasHeaderString.equals("false")) {
+      hasHeader = false;
+    } else {
+      responseMap.put("error_type", "invalid parameters");
+      responseMap.put("error_arg", "header should be true or false");
+      return adapter.toJson(responseMap);
+    }
     if (fileName == null) {
       responseMap.put("error_type", "missing_parameter");
       responseMap.put("error_arg", "empty path name");
