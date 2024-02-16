@@ -1,27 +1,26 @@
-package edu.brown.cs.student.main.server;
+package edu.brown.cs.student.main.Server;
 
 import static spark.Spark.after;
+
+import edu.brown.cs.student.main.Server.datasources.*;
+import edu.brown.cs.student.main.Server.handlers.BroadbandHandler;
+import edu.brown.cs.student.main.Server.handlers.LoadCSVHandler;
+import edu.brown.cs.student.main.Server.handlers.SearchCSVHandler;
+import edu.brown.cs.student.main.Server.handlers.ViewCSVHandler;
 import edu.brown.cs.student.main.csvtools.FactoryFailureException;
-import edu.brown.cs.student.main.server.datasources.*;
-import edu.brown.cs.student.main.server.handlers.BroadbandHandler;
-import edu.brown.cs.student.main.server.handlers.LoadCSVHandler;
-import edu.brown.cs.student.main.server.handlers.SearchCSVHandler;
-import edu.brown.cs.student.main.server.handlers.ViewCSVHandler;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
-
 import spark.Spark;
 
 /**
- * This is the main server class. Running this file will run the server on port 3232.
- * The server will handle the requests sent by the user.
+ * This is the main server class. Running this file will run the server on port 3232. The server
+ * will handle the requests sent by the user.
  *
- * @author Michael Rostom, Sun Joo Park
- * Endpoints:
- * loadcsv: loads CSV file onto the server, must provide valid filepath parameter.
- * viewcsv: returns loaded CSV file. Returns success when loaded correctly, causes an error if not.
- * searchcsv: searches loaded CSV file for provided value (index, header name, all). Causes an error if no CSV file is loaded.
- * broadband: searches the ACS 2021 data based on two parameters.
+ * @author Michael Rostom, Sun Joo Park Endpoints: loadcsv: loads CSV file onto the server, must
+ *     provide valid filepath parameter. viewcsv: returns loaded CSV file. Returns success when
+ *     loaded correctly, causes an error if not. searchcsv: searches loaded CSV file for provided
+ *     value (index, header name, all). Causes an error if no CSV file is loaded. broadband:
+ *     searches the ACS 2021 data based on two parameters.
  */
 public class Server {
 
@@ -59,13 +58,9 @@ public class Server {
    *
    * @param args An array of command line arguments
    */
-  public static void main(String[] args) throws IOException, FactoryFailureException, ExecutionException {
+  public static void main(String[] args)
+      throws IOException, FactoryFailureException, ExecutionException {
     Server server = new Server();
     System.out.println("Server started; exiting main...");
-    APIDataSourceInterface aciDataSource = new ACIDataSource(); // TODO: How to connect this with Server
-    CachingProxy cachingProxy = new CachingProxy(aciDataSource);
-
-    // Load result into cache
-    System.out.println(cachingProxy.operation());
   }
 }
