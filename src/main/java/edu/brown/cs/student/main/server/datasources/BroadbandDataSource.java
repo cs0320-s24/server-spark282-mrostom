@@ -13,6 +13,8 @@ import java.net.URLConnection;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import okio.Buffer;
 
 public class BroadbandDataSource implements APIDataSourceInterface {
@@ -100,6 +102,11 @@ public class BroadbandDataSource implements APIDataSourceInterface {
     System.out.print(percentage);
 
     return List.of(List.of("hi"));
+  }
+
+  @Override
+  public String operation() throws ExecutionException {
+    return null;
   }
 
   public static List<List<String>> broadbandList;

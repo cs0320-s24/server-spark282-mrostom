@@ -2,15 +2,14 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 import edu.brown.cs.student.main.csvtools.FactoryFailureException;
-import edu.brown.cs.student.main.server.datasources.APIDataSourceInterface;
-import edu.brown.cs.student.main.server.datasources.BroadbandDataSource;
-import edu.brown.cs.student.main.server.datasources.CSVDataSource;
-import edu.brown.cs.student.main.server.datasources.CSVDataSourceInterface;
+import edu.brown.cs.student.main.server.datasources.*;
 import edu.brown.cs.student.main.server.handlers.BroadbandHandler;
 import edu.brown.cs.student.main.server.handlers.LoadCSVHandler;
 import edu.brown.cs.student.main.server.handlers.SearchCSVHandler;
 import edu.brown.cs.student.main.server.handlers.ViewCSVHandler;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 import spark.Spark;
 
 /**
@@ -60,8 +59,13 @@ public class Server {
    *
    * @param args An array of command line arguments
    */
-  public static void main(String[] args) throws IOException, FactoryFailureException {
+  public static void main(String[] args) throws IOException, FactoryFailureException, ExecutionException {
     Server server = new Server();
     System.out.println("Server started; exiting main...");
+    APIDataSourceInterface aciDataSource = new ACIDataSource(); // TODO: How to connect this with Server
+    CachingProxy cachingProxy = new CachingProxy(aciDataSource);
+
+    // Load result into cache
+    System.out.println(cachingProxy.operation());
   }
 }
