@@ -12,13 +12,13 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-/** ViewCSVHandler which handles requests view CSV data if loaded. */
+/** ViewCSVHandler class, handles view requests on CSV data if file is loaded. Implements Route. */
 public class ViewCSVHandler implements Route {
 
   final CSVDataSourceInterface CSVDataSource;
 
   /**
-   * Constructor for the viewCSVhandler.
+   * Constructor for the ViewCSVHandler.
    *
    * @param CSVDataSource DataSource that implements the interface
    */
@@ -27,16 +27,16 @@ public class ViewCSVHandler implements Route {
   }
 
   /**
-   * Will handle requests from server and returns the loaded file.
+   * Handles requests from server and returns the loaded file.
    *
    * @param request a spark Request
-   * @param response a spark response
+   * @param response a spark Response
    * @return a responseMap with the data if successful, with error otherwise
    */
   @Override
   public Object handle(Request request, Response response) {
 
-    // configure moshi to read JSON response
+    // Configure moshi to read JSON response
     final Moshi moshi = new Moshi.Builder().build();
     Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
     JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
