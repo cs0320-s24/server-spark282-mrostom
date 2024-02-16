@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.Server;
+package edu.brown.cs.student.main.Server.DataSources;
 
 import edu.brown.cs.student.main.Server.Handlers.DatasourceException;
 import java.io.IOException;
