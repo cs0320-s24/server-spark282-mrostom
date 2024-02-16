@@ -12,7 +12,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import okio.Buffer;
 
 /** A class that implements APIDataSourceInterface. Specifically for importing Api data from ACS. */
@@ -91,7 +90,7 @@ public class BroadbandDataSource implements APIDataSourceInterface {
                   + stateId);
       countyList = fetch(requestUrl);
       for (List<String> row : countyList) {
-          countyMap.put(row.get(0), row.get(2));
+        countyMap.put(row.get(0), row.get(2));
       }
       return countyMap;
     } catch (IOException e) {
@@ -132,19 +131,14 @@ public class BroadbandDataSource implements APIDataSourceInterface {
   @Override
   public List<List<String>> getData(String state, String county) throws DatasourceException {
     HashMap<String, String> stateIdMap = new HashMap<>();
-    if (stateList == null) {
-      // not cached
-      stateIdMap = fetchStateData();
-    }
+    System.out.println("not caching");
+
+    stateIdMap = fetchStateData();
+
     String stateId = stateIdMap.get(state);
     HashMap<String, String> countyIdMap = fetchCountyData(stateId);
     String countyId = countyIdMap.get(county + ", " + state);
-      return fetchBroadbandData(stateId, countyId);
-  }
-
-  @Override
-  public String operation() throws ExecutionException {
-    return null;
+    return fetchBroadbandData(stateId, countyId);
   }
 
   /**

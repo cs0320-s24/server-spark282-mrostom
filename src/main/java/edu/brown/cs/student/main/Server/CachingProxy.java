@@ -4,48 +4,36 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import edu.brown.cs.student.main.Server.datasources.APIDataSourceInterface;
-import edu.brown.cs.student.main.Server.handlers.DatasourceException;
-import edu.brown.cs.student.main.csvtools.FactoryFailureException;
-import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.NotNull;
 
 public class CachingProxy implements APIDataSourceInterface {
 
-  private final LoadingCache<String, String> cache;
-  private final APIDataSourceInterface broadband;
+  private final LoadingCache<String, List<List<String>>> cache;
 
   public CachingProxy(APIDataSourceInterface broadband) {
-    this.broadband = broadband;
     this.cache =
         CacheBuilder.newBuilder()
-            .maximumSize(1)
-            .expireAfterWrite(1, TimeUnit.MINUTES)
+            .maximumSize(100)
+            .expireAfterWrite(100, TimeUnit.MINUTES)
+            .recordStats()
             .build(
-                new CacheLoader<String, String>() {
+                new CacheLoader<>() {
                   @NotNull
-                  @Override
-                  public String load(@NotNull String key) throws Exception {
-                    return broadband.getData();
+                  public List<List<String>> load(@NotNull String key) throws Exception {
+                    String[] parts = key.split(":"); // Split key to extract State and County
+                    String state = parts[0];
+                    String county = parts[1];
+                    return broadband.getData(state, county);
                   }
                 });
   }
 
   @Override
-  public List<List<String>> getData(String State, String County)
-      throws IOException, DatasourceException {
-    return null; // TODO: What to return here
-  }
-
-  @Override
-  public String operation() throws ExecutionException {
-
-    try {
-      return cache.get("key"); // TODO: What should be the key
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot get cache", e);
-    }
+  public List<List<String>> getData(String State, String County) {
+    String key = State + ":" + County; // Create key based on state and county
+    System.out.println(cache.stats());
+    return cache.getUnchecked(key);
   }
 }

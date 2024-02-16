@@ -30,6 +30,7 @@ public class Server {
   // Instantiate data sources
   private static final CSVDataSourceInterface CSVSource = new CSVDataSource();
   private static final APIDataSourceInterface APISource = new BroadbandDataSource();
+  private static final APIDataSourceInterface CachingProxy = new CachingProxy(APISource);
 
   /** Constructor for Server. */
   public Server() {
@@ -47,7 +48,7 @@ public class Server {
     Spark.get("loadcsv", new LoadCSVHandler(CSVSource));
     Spark.get("viewcsv", new ViewCSVHandler(CSVSource));
     Spark.get("searchcsv", new SearchCSVHandler(CSVSource));
-    Spark.get("broadband", new BroadbandHandler(APISource));
+    Spark.get("broadband", new BroadbandHandler(CachingProxy));
 
     // Wait until server starts
     Spark.awaitInitialization();

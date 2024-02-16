@@ -58,7 +58,6 @@ public class BroadbandHandler implements Route {
     county = county.replaceAll("_", " ");
     try {
       List<List<String>> data = datasource.getData(state, county);
-
       LocalDate currentTime = LocalDate.now();
       responseMap.put("type", "success");
       responseMap.put("data", data);
@@ -66,7 +65,7 @@ public class BroadbandHandler implements Route {
     } catch (DatasourceException e) {
       responseMap.put("error_type", "data_handling_error");
       responseMap.put("error_arg", "malformed data");
-    }catch (IOException e){
+    } catch (IOException e) {
       responseMap.put("error_type", "connection_error");
       responseMap.put("error_arg", "Couldn't open port connection");
     }
