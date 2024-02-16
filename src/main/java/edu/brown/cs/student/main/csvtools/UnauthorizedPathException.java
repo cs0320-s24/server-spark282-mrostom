@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.CSVUtilities;
+package edu.brown.cs.student.main.csvtools;
 
 /**
  * An exception that's generated when an attempted path access is out of protected bounds, extends

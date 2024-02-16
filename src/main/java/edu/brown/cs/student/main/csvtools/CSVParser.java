@@ -1,10 +1,9 @@
-package edu.brown.cs.student.main.CSVUtilities;
+package edu.brown.cs.student.main.csvtools;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import src.main.java.edu.brown.cs.student.main.CSVParser.FactoryFailureException;
 
 /**
  * A generic CSVParser class that parses data into a List of T.
