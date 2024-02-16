@@ -3,6 +3,7 @@ package edu.brown.cs.student.main.server.handlers;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.csvtools.FactoryFailureException;
 import edu.brown.cs.student.main.csvtools.Search;
 import edu.brown.cs.student.main.server.datasources.CSVDataSourceInterface;
 import java.io.*;
@@ -13,7 +14,6 @@ import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import edu.brown.cs.student.main.csvtools.FactoryFailureException;
 
 public class SearchCSVHandler implements Route {
 

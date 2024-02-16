@@ -13,20 +13,15 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-
-/**
- * LoadCSVHandler which handles requests to the loadcsv handler. It will load and parse the file
- */
+/** LoadCSVHandler which handles requests to the loadcsv handler. It will load and parse the file */
 public class LoadCSVHandler implements Route {
 
-
+  private final CSVDataSourceInterface CSVDataSource;
   // configure moshi to read JSON response
   Moshi moshi = new Moshi.Builder().build();
   Map<String, Object> responseMap = new HashMap<>();
   Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
   JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
-
-  private final CSVDataSourceInterface CSVDataSource;
 
   /**
    * Constructor for the loadcsvHandler.
@@ -40,10 +35,10 @@ public class LoadCSVHandler implements Route {
   /**
    * Will handle requests from server and parse the file.
    *
-   * @param request  a spark Request
-   * @param response a spark response
+   * @param request a spark Request
+   * @param response a spark response with parameter filepath and header
    * @return a responseMap with the response of the handler: type=success if the loading and parsing
-   * is successful. error_type=* when there is an error
+   *     is successful. error_type=* when there is an error
    */
   @Override
   public Object handle(Request request, Response response) {
@@ -61,7 +56,6 @@ public class LoadCSVHandler implements Route {
 
       // Response returns okay for loading properly
       responseMap.put("type", "success");
-      responseMap.put("view", "successful");
     } catch (IOException e) {
       responseMap.put("error_type", "fileName_error");
       responseMap.put("error_arg", "cannot load file");
@@ -70,6 +64,5 @@ public class LoadCSVHandler implements Route {
       responseMap.put("error_arg", "malformed data");
     }
     return adapter.toJson(responseMap);
-
   }
 }

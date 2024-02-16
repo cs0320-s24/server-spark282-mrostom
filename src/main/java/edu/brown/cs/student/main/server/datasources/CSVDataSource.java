@@ -1,6 +1,5 @@
 package edu.brown.cs.student.main.server.datasources;
 
-
 import edu.brown.cs.student.main.csvtools.CSVParser;
 import edu.brown.cs.student.main.csvtools.CreatorFromRow;
 import edu.brown.cs.student.main.csvtools.FactoryFailureException;
@@ -10,9 +9,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
-/**
- * A class that implements CSVDataSourceInterface. Specifically for importing CSV data
- */
+/** A class that implements CSVDataSourceInterface. Specifically for importing CSV data */
 public class CSVDataSource implements CSVDataSourceInterface {
 
   private List<List<String>> data;
@@ -21,11 +18,10 @@ public class CSVDataSource implements CSVDataSourceInterface {
   /**
    * A method for parsing a CSV file.
    *
-   * @param filePath  path for the file
+   * @param filePath path for the file
    * @param hasHeader boolean indicating whether the file has a header row
    * @throws FactoryFailureException thrown when CSV data is malformed
-   * @throws IOException             thrown when there is an error reading the file(file not found,
-   *                                 corrupted,…)
+   * @throws IOException thrown when there is an error reading the file(file not found, corrupted,…)
    */
   @Override
   public void parseData(String filePath, Boolean hasHeader)
