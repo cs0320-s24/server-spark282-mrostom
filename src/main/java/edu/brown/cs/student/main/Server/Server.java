@@ -41,7 +41,7 @@ public class Server {
    *
    */
   public Server() throws IOException, FactoryFailureException {
-    // Set up SparkJava Server
+    // Set up SparkJava Server.
     Spark.port(this.port);
 
     // Setting CORS headers
