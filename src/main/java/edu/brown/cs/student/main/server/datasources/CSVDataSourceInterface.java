@@ -11,7 +11,7 @@ import java.util.List;
 public interface CSVDataSourceInterface {
 
   void parseData(String filePath, Boolean hasHeader)
-      throws IOException, FactoryFailureException, DatasourceException;
+      throws FactoryFailureException, IOException;
 
   List<List<String>> getData();
 

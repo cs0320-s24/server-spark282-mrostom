@@ -31,7 +31,7 @@ public class CSVDataSource implements CSVDataSourceInterface {
   public void parseData(String filePath, Boolean hasHeader)
       throws FactoryFailureException, IOException {
     Reader reader = new FileReader(filePath);
-    CreatorFromRow creator = new RowCreator();
+    CreatorFromRow<List<String>> creator = new RowCreator();
     CSVParser<List<String>> parser = new CSVParser<>(reader, creator);
     this.data = parser.parse(hasHeader);
     if (hasHeader) {
