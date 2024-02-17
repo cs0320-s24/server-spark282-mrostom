@@ -42,7 +42,7 @@ public class CSVDataSource implements CSVDataSourceInterface {
    */
   @Override
   public List<List<String>> getData() {
-    return this.data; // TODO: proxy pattern
+    return this.data;
   }
 
   /**
@@ -52,6 +52,6 @@ public class CSVDataSource implements CSVDataSourceInterface {
    */
   @Override
   public List<String> getHeaderRow() {
-    return this.headerRow; // TODO: proxy pattern
+    return this.headerRow;
   }
 }

@@ -34,7 +34,8 @@ To change the caching expiry time, you can change the variable at the top of ser
 When the user tries to view a data file loaded via 'loadcsv' or data from the api, the JSON response includes `\` to escape quotation marks in the data.
 This is happening because the JSON thinks the data is a String rather than a List<List<String>>
 # Tests
-
+We tried to do tests on CSV but couldn't get the test formula correct. We wrote tests to make sure that loadcsv, viewcsv, searchcsv is working.
+We tested the API with a mocked server in order to not push to many requests to the original Api.
 # How to
 ### CSV
 To use the server with a CSV file, run the server and then send a query to the endpoint 'loadcsv', the query should contain:

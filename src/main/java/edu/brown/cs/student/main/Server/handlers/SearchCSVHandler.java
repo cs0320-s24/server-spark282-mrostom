@@ -47,7 +47,6 @@ public class SearchCSVHandler implements Route {
     String value = request.queryParams("value"); // value is the keyword to search for
     String indexString = request.queryParams("index");
     String header = request.queryParams("header");
-    System.out.println(headerRow);
     List<List<String>> data = this.CSVDataSource.getData();
     if (value == null) {
       responseMap.put("error_type", "missing_parameter");
